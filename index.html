@@ -8,7 +8,7 @@
   <style>
     .brand {
       text-align: center;
-      color: #1a56db; /* Blue color */
+      color: #1a56db;
       font-weight: bold;
       font-size: 2em;
       padding: 15px 0;
@@ -17,13 +17,173 @@
       background-color: #ffffff;
       border-bottom: 2px solid #e5e7eb;
     }
+
+    /* Admin Panel Specific Fixes */
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .dashboard-header h1 {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: var(--font-weight-bold);
+      color: var(--primary-color);
+      margin-bottom: 4px;
+    }
+
+    .dashboard-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    /* Admin Cards Layout */
+    .admin-section {
+      margin-bottom: 32px;
+    }
+
+    .admin-section:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Filter Section Improvements */
+    .admin-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+      align-items: center;
+      padding: 16px;
+      background: var(--bg-tertiary);
+      border-radius: var(--border-radius-md);
+    }
+
+    .admin-filters input {
+      flex: 1;
+      min-width: 150px;
+      padding: 10px 14px;
+      border: 1px solid var(--border-medium);
+      border-radius: var(--border-radius-md);
+      font-size: 14px;
+    }
+
+    .admin-filters button {
+      white-space: nowrap;
+    }
+
+    /* Table improvements */
+    .admin-table-container {
+      background: var(--bg-primary);
+      border-radius: var(--border-radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+
+    .admin-table-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      background: var(--bg-tertiary);
+      border-bottom: 1px solid var(--border-light);
+    }
+
+    .admin-table-title {
+      font-size: 18px;
+      font-weight: var(--font-weight-semibold);
+      color: var(--primary-color);
+      margin: 0;
+    }
+
+    /* Footer positioning fix */
+    .modern-footer {
+      margin-top: 40px;
+      padding: 32px 0;
+      background: var(--bg-primary);
+      border-top: 1px solid var(--border-light);
+    }
+
+    .disclaimer-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+      background: #fef9c3;
+      border: 1px solid #fde047;
+      border-radius: var(--border-radius-lg);
+      border-left: 4px solid var(--warning-color);
+    }
+
+    .disclaimer-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .disclaimer-icon {
+      font-size: 24px;
+    }
+
+    .disclaimer-title {
+      font-size: 20px;
+      font-weight: var(--font-weight-bold);
+      color: var(--gray-800);
+      margin: 0;
+    }
+
+    .disclaimer-text {
+      color: var(--gray-700);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-light);
+      color: var(--gray-600);
+      font-size: 14px;
+    }
+
+    /* Responsive fixes */
+    @media (max-width: 768px) {
+      .dashboard-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .dashboard-actions {
+        width: 100%;
+        justify-content: flex-start;
+      }
+
+      .admin-filters {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .admin-filters input {
+        min-width: unset;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <!-- Header -->
     <header>
-      <div class="brand">Vehicle Emissions Data Access<br><span style="font-size: 0.6em; font-weight: normal; color: #4b5563;">Search, Explore, and Access Vehicle Emissions Data with V.E.D.A.</span></div>
+      <div class="brand">
+        Vehicle Emissions Data Access<br>
+        <span style="font-size: 0.6em; font-weight: normal; color: #4b5563;">
+          Search, Explore, and Access Vehicle Emissions Data with V.E.D.A.
+        </span>
+      </div>
       <div class="topbar">
         <div id="userGreeting" class="muted">Not signed in</div>
         <button id="logoutBtn" class="btn btn-ghost hidden">Logout</button>
@@ -85,6 +245,7 @@
         </div>
       </section>
 
+      <!-- User Dashboard -->
       <section id="userDashboard" class="hidden">
         <div class="card">
           <div class="dashboard-header">
@@ -122,22 +283,24 @@
             </div>
             <div id="certListWrapper">
               <div id="certLoading" class="muted">Loading…</div>
-              <table id="certTable" class="hidden">
-                <thead>
-                  <tr>
-                    <th>EO Number</th>
-                    <th>Year</th>
-                    <th>Vehicle Make</th>
-                    <th>Vehicle Model</th>
-                    <th>Manufacturer</th>
-                    <th>Engine Size(L)</th>
-                    <th>Evap. Family</th>
-                    <th>Test Group</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="certBody"></tbody>
-              </table>
+              <div class="table-responsive">
+                <table id="certTable" class="hidden">
+                  <thead>
+                    <tr>
+                      <th>EO Number</th>
+                      <th>Year</th>
+                      <th>Vehicle Make</th>
+                      <th>Vehicle Model</th>
+                      <th>Manufacturer</th>
+                      <th>Engine Size(L)</th>
+                      <th>Evap. Family</th>
+                      <th>Test Group</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="certBody"></tbody>
+                </table>
+              </div>
       
               <!-- Pagination -->
               <div id="userPagination" class="pagination hidden">
@@ -148,29 +311,7 @@
             </div>
           </div>
         </div>
-    </section>
-    
-    <!-- Add Footer Here -->
-    <footer class="modern-footer">
-      <div class="footer-content">
-          <div class="disclaimer-section">
-              <div class="disclaimer-header">
-                  <div class="disclaimer-icon">⚠️</div>
-                  <h2 class="disclaimer-title">Important Disclaimer</h2>
-              </div>
-              <div class="disclaimer-text">
-                  This database is compiled from publicly available government data (e.g., CARB). 
-                  Accuracy is <strong>not guaranteed</strong>, and the information may be incomplete or outdated. 
-                  Use <strong>at your own discretion</strong>. We are <strong>not affiliated with or endorsed by any government agency</strong>, 
-                  and VEDA Services <strong>is not liable</strong> for any decisions made based on this data.
-              </div>
-          </div>
-          <div class="footer-bottom">
-              <p>&copy; 2024 VEDA Services. All rights reserved.</p>
-          </div>
-      </div>
-  </footer>
-      
+      </section>
 
       <!-- Admin Dashboard -->
       <section id="adminDashboard" class="hidden">
@@ -180,99 +321,118 @@
               <h1>Admin Dashboard</h1>
               <div class="muted">Manage users and EO certificates</div>
             </div>
-            <div>
+            <div class="dashboard-actions">
               <button id="refreshUsers" class="btn btn-ghost small">Refresh Users</button>
               <button id="refreshCerts" class="btn btn-ghost small">Refresh Certs</button>
             </div>
           </div>
 
-          <!-- Pending Users -->
-          <div class="card">
-            <h2>Pending Users</h2>
-            <div id="usersLoading" class="muted">Loading…</div>
-            <table id="usersTable" class="hidden">
-              <thead>
-                <tr><th>Username</th><th>Email</th><th>Status</th><th>Role</th><th>Actions</th></tr>
-              </thead>
-              <tbody id="usersBody"></tbody>
-            </table>
+          <!-- Pending Users Section -->
+          <div class="admin-section">
+            <div class="admin-table-container">
+              <div class="admin-table-header">
+                <h2 class="admin-table-title">Pending Users</h2>
+              </div>
+              <div style="padding: 0 24px 24px 24px;">
+                <div id="usersLoading" class="muted">Loading…</div>
+                <div class="table-responsive">
+                  <table id="usersTable" class="hidden">
+                    <thead>
+                      <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Role</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="usersBody"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <!-- Certificates -->
-          <div class="card">
-            <div class="card-header">
-              <h2>Certificates</h2>
-          
-              <style>
-                .filters {
-                  display: flex;
-                  gap: 10px;
-                  margin-bottom: 10px;
-                  align-items: center;
-                }
-                .filters input {
-                  flex: 1;
-                  padding: 8px;
-                  border: 1px solid #ccc;
-                  border-radius: 6px;
-                }
-                .filters button {
-                  padding: 8px 16px;
-                  border-radius: 6px;
-                }
-              </style>
-          
-          <div class="filters">
-            <input type="text" id="filterEONumber" placeholder="EO Number"
-                   oninput="handleFilterChange()" onkeyup="handleFilterKeyup(event)">
-            <input type="text" id="filterYear" placeholder="Year"
-                   oninput="handleFilterChange()" onkeyup="handleFilterKeyup(event)">
-            <input type="text" id="filterMake" placeholder="Make"
-                   oninput="handleFilterChange()" onkeyup="handleFilterKeyup(event)">
-            <input type="text" id="filterModel" placeholder="Model"
-                   oninput="handleFilterChange()" onkeyup="handleFilterKeyup(event)">
-                   
-            <button onclick="loadAdminCerts(1)" class="btn btn-primary small">Search</button>
-            <button id="addCertBtn" class="btn btn-primary small">Add Certificate</button>
-          </div>
-          
-          
-            <!-- Loader -->
-            <div id="certsLoadingAdmin" class="hidden muted">Loading certificates...</div>
-          
-            <!-- Table -->
-            <div class="table-responsive">
-              <table id="adminCertTable" class="hidden">
-                <thead>
-                  <tr>
-                    <th>EO Number</th>
-                    <th>Year</th>
-                    <th>Make</th>
-                    <th>Model</th>
-                    <th>Manufacturer</th>
-                    <th>Engine Size</th>
-                    <th>Evap. Family</th>
-                    <th>Test Group</th>
-                    <th>Exhaust ECS and Special Features</th>
-                    <th>Actions</th>
-                  </tr>
-                </thead>
-                <tbody id="adminCertBody"></tbody>
-              </table>
-            </div>
-          
-            <!-- Pagination -->
-            <div id="pagination" class="pagination hidden">
-              <button id="prevPage" class="btn btn-ghost">Previous</button>
-              <span id="pageInfo">Page 1 of 1</span>
-              <button id="nextPage" class="btn btn-ghost">Next</button>
+          <!-- Certificates Section -->
+          <div class="admin-section">
+            <div class="admin-table-container">
+              <div class="admin-table-header">
+                <h2 class="admin-table-title">Certificates Management</h2>
+                <button id="addCertBtn" class="btn btn-primary small">Add Certificate</button>
+              </div>
+              
+              <div style="padding: 0 24px;">
+                <!-- Filter Section -->
+                <div class="admin-filters">
+                  <input type="text" id="filterEONumber" placeholder="EO Number"
+                         oninput="handleFilterChange()" onkeyup="handleFilterKeyup(event)">
+                  <input type="text" id="filterYear" placeholder="Year"
+                         oninput="handleFilterChange()" onkeyup="handleFilterKeyup(event)">
+                  <input type="text" id="filterMake" placeholder="Make"
+                         oninput="handleFilterChange()" onkeyup="handleFilterKeyup(event)">
+                  <input type="text" id="filterModel" placeholder="Model"
+                         oninput="handleFilterChange()" onkeyup="handleFilterKeyup(event)">
+                  <button onclick="loadAdminCerts(1)" class="btn btn-primary small">Search</button>
+                </div>
+              </div>
+              
+              <div style="padding: 0 24px 24px 24px;">
+                <!-- Loader -->
+                <div id="certsLoadingAdmin" class="hidden muted">Loading certificates...</div>
+              
+                <!-- Table -->
+                <div class="table-responsive">
+                  <table id="adminCertTable" class="hidden">
+                    <thead>
+                      <tr>
+                        <th>EO Number</th>
+                        <th>Year</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Manufacturer</th>
+                        <th>Engine Size</th>
+                        <th>Evap. Family</th>
+                        <th>Test Group</th>
+                        <th>Exhaust ECS</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="adminCertBody"></tbody>
+                  </table>
+                </div>
+              
+                <!-- Pagination -->
+                <div id="pagination" class="pagination hidden">
+                  <button id="prevPage" class="btn btn-ghost">Previous</button>
+                  <span id="pageInfo">Page 1 of 1</span>
+                  <button id="nextPage" class="btn btn-ghost">Next</button>
+                </div>
+              </div>
             </div>
           </div>
-          
-          
+        </div>
+      </section>
+    </main>
+    
     <!-- Footer -->
-    <footer>
-      Zero-emission vehicles are essential to achieve clean air for all Californians. The state has set a target to sell only zero-emission new cars, SUVs, and pickup trucks by 2035. California is committed to supporting the cleanest transportation while ensuring all communities benefit, especially those overburdened by air pollution.
+    <footer class="modern-footer">
+      <div class="footer-content">
+        <div class="disclaimer-section">
+          <div class="disclaimer-header">
+            <div class="disclaimer-icon">⚠️</div>
+            <h2 class="disclaimer-title">Important Disclaimer</h2>
+          </div>
+          <div class="disclaimer-text">
+            This database is compiled from publicly available government data (e.g., CARB). 
+            Accuracy is <strong>not guaranteed</strong>, and the information may be incomplete or outdated. 
+            Use <strong>at your own discretion</strong>. We are <strong>not affiliated with or endorsed by any government agency</strong>, 
+            and VEDA Services <strong>is not liable</strong> for any decisions made based on this data.
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 VEDA Services. All rights reserved.</p>
+        </div>
+      </div>
     </footer>
   </div>
 
@@ -288,35 +448,8 @@
   </div>
 
   <!-- Toast container -->
-  <div id="toastContainer"></div>
+  <div id="toastContainer" class="toast-container"></div>
 
-  <!-- Debug Info
-  <div id="debugInfo" style="position: fixed; bottom: 10px; right: 10px; background: #f0f0f0; padding: 10px; border: 1px solid #ccc; z-index: 1000; font-size: 12px;">
-    <div>Debug Info:</div>
-    <div id="jsLoaded">JS: Not loaded</div>
-    <div id="elementsFound">Elements: Checking...</div>
-  </div> -->
-
-  <!-- <script>
-    // Simple test to see if JS is loaded
-    document.getElementById('jsLoaded').textContent = 'JS: Loaded';
-    
-    // Check if required elements exist
-    const checkElements = () => {
-      const elements = ['doLogin', 'doRegister', 'loginEmail', 'loginPassword'];
-      const found = elements.filter(id => document.getElementById(id));
-      document.getElementById('elementsFound').textContent = 
-        `Found ${found.length} of ${elements.length} elements: ${found.join(', ')}`;
-    };
-    
-    // Run check when DOM is loaded
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', checkElements);
-    } else {
-      checkElements();
-    }
-  </script> -->
-  
   <script src="main.js"></script>
 </body>
 </html>
