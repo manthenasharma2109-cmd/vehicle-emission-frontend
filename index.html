@@ -53,18 +53,20 @@
     /* Filter Section Improvements */
     .admin-filters {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 12px;
       margin-bottom: 20px;
       align-items: center;
       padding: 16px;
       background: var(--bg-tertiary);
       border-radius: var(--border-radius-md);
+      overflow-x: auto;
     }
 
     .admin-filters input {
       flex: 1;
-      min-width: 150px;
+      min-width: 140px;
+      max-width: 200px;
       padding: 10px 14px;
       border: 1px solid var(--border-medium);
       border-radius: var(--border-radius-md);
@@ -73,6 +75,7 @@
 
     .admin-filters button {
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     /* Table improvements */
@@ -164,12 +167,19 @@
       }
 
       .admin-filters {
-        flex-direction: column;
-        align-items: stretch;
+        flex-wrap: wrap;
+        justify-content: flex-start;
       }
 
       .admin-filters input {
-        min-width: unset;
+        min-width: 120px;
+        max-width: none;
+        flex: 1 1 calc(50% - 6px);
+      }
+
+      .admin-filters button {
+        flex: 1 1 100%;
+        margin-top: 8px;
       }
     }
   </style>
