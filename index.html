@@ -3,21 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Vehicle Emissions Data Access</title>
+  <title>VEDA - Vehicle Emissions Data Access</title>
+  <link rel="icon" type="image/x-icon" href="Logo.png">
+  <link rel="shortcut icon" type="image/x-icon" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
   <link rel="stylesheet" href="styles.css" />
   <style>
     .brand {
       text-align: center;
-      color: #1a56db;
-      font-weight: bold;
-      font-size: 2em;
-      padding: 15px 0;
+      padding: 0;
       margin: 0;
       width: 100%;
       background-color: #ffffff;
       border-bottom: 2px solid #e5e7eb;
       position: relative;
       overflow: hidden;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     /* Header background image */
@@ -31,8 +35,8 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      opacity: 0.1;
-      z-index: 0;
+      opacity: 1;
+      z-index: 1;
     }
 
     /* Logo styling */
@@ -41,15 +45,21 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      z-index: 1;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 15px 30px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
     }
 
     .logo {
       max-height: 80px;
-      max-width: 300px;
+      max-width: 350px;
       height: auto;
       width: auto;
       object-fit: contain;
+      display: block;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     }
 
     /* Admin Panel Specific Fixes */
@@ -189,9 +199,17 @@
 
     /* Responsive fixes */
     @media (max-width: 768px) {
+      .brand {
+        min-height: 100px;
+      }
+      
+      .logo-container {
+        padding: 10px 20px;
+      }
+      
       .logo {
         max-height: 60px;
-        max-width: 250px;
+        max-width: 280px;
       }
 
       .dashboard-header {
@@ -223,9 +241,17 @@
     }
 
     @media (max-width: 480px) {
+      .brand {
+        min-height: 80px;
+      }
+      
+      .logo-container {
+        padding: 8px 15px;
+      }
+      
       .logo {
-        max-height: 50px;
-        max-width: 200px;
+        max-height: 45px;
+        max-width: 220px;
       }
     }
   </style>
@@ -238,7 +264,7 @@
         <!-- Header background image -->
         <div class="header-bg"></div>
         
-        <!-- Logo and brand text container -->
+        <!-- Logo container -->
         <div class="logo-container">
           <img src="Logo.png" alt="VEDA Logo" class="logo" id="logoImage">
         </div>
